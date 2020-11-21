@@ -1,31 +1,74 @@
 on: [push]
 
 jobs:
-  k6_local_test:
-    name: k6 local test on macos
+  build_python:
+    name: Build and Upload
     runs-on: macos-10.15
 
     steps:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: install brew
+      - name: Install Python build dependency
         run: brew install readline xz openssl
 
-      - name: install pyenv
+      - name: Install pyenv
         run: curl https://pyenv.run | bash
       
-      - name: install python
-        run: export PATH="/Users/runner/.pyenv/bin:$PATH" && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)" && pyenv install 3.6.12
+      - name: Install python using pyenv
+        run: |
+          export PATH="/Users/runner/.pyenv/bin:$PATH" 
+          eval "$(pyenv init -)"
+          eval "$(pyenv virtualenv-init -)" 
+          pyenv install 3.4.10
+          pyenv install 3.5.10
+          pyenv install 3.6.12
+          pyenv install 3.7.9
+          pyenv install 3.8.6
+          pyenv install 3.9.0
         
-      - name: run test
-        run: export PATH="/Users/runner/.pyenv/bin:$PATH" && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)" && pyenv shell 3.6.12 && python -c 'import readline'
+      - name: Archive
+        run: |
+          cd /Users/runner/.pyenv/versions
+          tar -zcf python-3.4.10.tar 3.4.10
+          tar -zcf python-3.5.10.tar 3.5.10
+          tar -zcf python-3.6.12.tar 3.6.12
+          tar -zcf python-3.7.9.tar 3.7.9
+          tar -zcf python-3.8.6.tar 3.8.6
+          tar -zcf python-3.9.0.tar 3.9.0
       
-      - name: archive
-        run: tar -zcvf /Users/runner/.pyenv.tar /Users/runner/.pyenv 
-      
-      - name: upload
+      - name: Upload 3.4.10
         uses: actions/upload-artifact@v2
         with:
-          name: .pyenv
-          path: /Users/runner/.pyenv.tar
+          name: python-3.4.10.tar
+          path: /Users/runner/.pyenv/versions/python-3.4.10.tar
+
+      - name: Upload 3.5.10
+        uses: actions/upload-artifact@v2
+        with:
+          name: python-3.5.10.tar
+          path: /Users/runner/.pyenv/versions/python-3.5.10.tar
+
+      - name: Upload 3.6.12
+        uses: actions/upload-artifact@v2
+        with:
+          name: python-3.6.12.tar
+          path: /Users/runner/.pyenv/versions/python-3.6.12.tar
+
+      - name: Upload 3.7.9
+        uses: actions/upload-artifact@v2
+        with:
+          name: python-3.7.9.tar
+          path: /Users/runner/.pyenv/versions/python-3.7.9.tar
+
+      - name: Upload 3.8.6
+        uses: actions/upload-artifact@v2
+        with:
+          name: python-3.8.6.tar
+          path: /Users/runner/.pyenv/versions/python-3.8.6.tar
+
+      - name: Upload 3.9.0
+        uses: actions/upload-artifact@v2
+        with:
+          name: python-3.9.0.tar
+          path: /Users/runner/.pyenv/versions/python-3.9.0.tar
