@@ -16,10 +16,16 @@ jobs:
         run: curl https://pyenv.run | bash
       
       - name: install python
-        run: export PATH="/Users/runner/.pyenv/bin:$PATH" && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)" && pyenv install 3.6.12 --patch < <(curl -sSL https://github.com/python/cpython/commit/8ea6353.patch\?full_index\=1)
+        run: export PATH="/Users/runner/.pyenv/bin:$PATH" && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)" && pyenv install 3.6.12
         
-      - name: change shell
-        run: pyenv shell 3.6.12
-      
       - name: run test
-        run: python -c 'import readline'
+        run: export PATH="/Users/runner/.pyenv/bin:$PATH" && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)" && pyenv shell 3.6.12 && python -c 'import readline'
+      
+      - name: archive
+        run: tar -zcvf /Users/runner/.pyenv.tar /Users/runner/.pyenv 
+      
+      - name: upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: .pyenv
+          path: /Users/runner/.pyenv.tar
