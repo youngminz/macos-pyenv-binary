@@ -20,7 +20,6 @@ jobs:
           export PATH="/Users/runner/.pyenv/bin:$PATH" 
           eval "$(pyenv init -)"
           eval "$(pyenv virtualenv-init -)" 
-          pyenv install 3.4.10
           pyenv install 3.5.10
           pyenv install 3.6.12
           pyenv install 3.7.9
@@ -30,19 +29,12 @@ jobs:
       - name: Archive
         run: |
           cd /Users/runner/.pyenv/versions
-          tar -zcf python-3.4.10.tar 3.4.10
           tar -zcf python-3.5.10.tar 3.5.10
           tar -zcf python-3.6.12.tar 3.6.12
           tar -zcf python-3.7.9.tar 3.7.9
           tar -zcf python-3.8.6.tar 3.8.6
           tar -zcf python-3.9.0.tar 3.9.0
       
-      - name: Upload 3.4.10
-        uses: actions/upload-artifact@v2
-        with:
-          name: python-3.4.10.tar
-          path: /Users/runner/.pyenv/versions/python-3.4.10.tar
-
       - name: Upload 3.5.10
         uses: actions/upload-artifact@v2
         with:
