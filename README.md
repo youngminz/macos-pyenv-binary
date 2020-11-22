@@ -9,6 +9,8 @@ How to use: Download the desired Python version artifact from GitHub Action and 
 When compiling Python, the Python installation path is hardcoded into the Hashbang(#!) or various configuration files. After unzipping, edit the hardcoded files to match your username with the shell script below. 
 
 ```bash
+cd ~/.pyenv/versions
+
 # For some reason, you have to use two below commands to make a complete change.
 LC_CTYPE=C LANG=C find ./ -type f -exec sed -i -e "s|/Users/runner/|${HOME}/|g" {} \;
 grep -rl '/Users/runner' . | LC_CTYPE=C LANG=C xargs sed -i '' -e "s|/Users/runner/|${HOME}/|g"
