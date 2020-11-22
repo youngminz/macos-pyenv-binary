@@ -1,4 +1,4 @@
-# pyenv-macos-binary
+# macos-pyenv-binary
 
 ![.github/workflows/build.yml](https://github.com/youngminz/pyenv-macos-binary/workflows/.github/workflows/build.yml/badge.svg)
 
