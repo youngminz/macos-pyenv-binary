@@ -1,34 +1,9 @@
 on: [push]
 
 jobs:
-  build_python_10_14:
-    name: Build and Upload (10.14)
-    runs-on: macos-10.14
-    
-    strategy:
-      matrix:
-        python: [3.4.10]
-
-    steps:
-      - name: Build and Archive
-        run: |
-          curl https://pyenv.run | bash
-          export PATH="/Users/runner/.pyenv/bin:$PATH" 
-          eval "$(pyenv init -)"
-          eval "$(pyenv virtualenv-init -)" 
-          pyenv install ${{ matrix.python }}
-          cd /Users/runner/.pyenv/versions
-          tar -zcf python-${{ matrix.python }}.tar ${{ matrix.python }}
-
-      - name: Upload
-        uses: actions/upload-artifact@v2
-        with:
-          name: python-${{ matrix.python }}.tar
-          path: /Users/runner/.pyenv/versions/python-${{ matrix.python }}.tar
-
-  build_python_10_15:
-    name: Build and Upload (10.15)
-    runs-on: macos-10.15
+  build_python:
+    name: Build and Upload
+    runs-on: macos-latest
     
     strategy:
       matrix:
