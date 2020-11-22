@@ -18,6 +18,7 @@ jobs:
           eval "$(pyenv virtualenv-init -)" 
           pyenv install ${{ matrix.python }}
           cd /Users/runner/.pyenv/versions
+          find . -type d -name __pycache__ -exec rm -r {} \+
           tar -zcf python-${{ matrix.python }}.tar ${{ matrix.python }}
 
       - name: Upload
