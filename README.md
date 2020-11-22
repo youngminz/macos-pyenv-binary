@@ -11,7 +11,7 @@ When compiling Python, the Python installation path is hardcoded into the Hashba
 ```bash
 cd ~/.pyenv/versions
 
-# For some reason, you have to use two below commands to make a complete change.
+# For some reason, you have to use two below commands to make a complete replace.
 LC_CTYPE=C LANG=C find ./ -type f -exec sed -i -e "s|/Users/runner/|${HOME}/|g" {} \;
 grep -rl '/Users/runner' . | LC_CTYPE=C LANG=C xargs sed -i '' -e "s|/Users/runner/|${HOME}/|g"
 
